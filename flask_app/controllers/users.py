@@ -51,3 +51,51 @@ def dashboard():
   }
   user = User.get_by_id(data)
   return render_template("dashboard.html", user=user)
+
+@app.route('/add/manager')
+def add_manager():
+  return render_template("add_manager.html")
+
+@app.route('/register/manager',methods=['POST'])
+def register_manager():
+  data ={ 
+    "first_name": request.form['first_name'],
+    "last_name": request.form['last_name'],
+    "email": request.form['email'],
+    "password": bcrypt.generate_password_hash(request.form['password'])
+    }
+  id = User.save(data)
+  return redirect('/add/manager')
+
+@app.route('/managers')
+def managers():
+  managers = User.get_all()
+  return render_template("managers.html", managers=managers)
+
+@app.route('/destroy/manager/<int:id>')
+def delete_manager(id):
+  data ={
+      'id': id
+  }
+  User.destroy_manager(data)
+  return redirect('/managers')
+
+@app.route('/manager/<int:id>')
+def show_manager(id):
+  data = {
+      "id": id
+  }
+  manager = User.get_by_id(data)
+  return render_template('show_manager.html', manager=manager)
+
+@app.route('/edit/manager/<int:id>')
+def edit_manager(id):
+  data ={ 
+      "id":id
+  }
+  return render_template("edit_manager.html",manager=User.get_by_id(data))
+
+@app.route('/update/manager',methods=['POST'])
+def update_manager():
+  User.update(request.form)
+  return redirect('/managers')

@@ -10,14 +10,14 @@ def buildings():
   return render_template("buildings.html", buildings=buildings)
 
 @app.route('/add/building')
-def add():
+def add_building():
   data ={
       'id': session['user_id']
   }
   return render_template("add_building.html")
 
-@app.route('/add/building/building',methods=['POST'])
-def add_building():
+@app.route('/register/building',methods=['POST'])
+def submit_building():
   Building.save(request.form)
   return redirect('/dashboard')
   # if property.validate_property(request.form):
@@ -26,11 +26,11 @@ def add_building():
   # return redirect('/add')
 
 @app.route('/destroy/building/<int:id>')
-def destroy(id):
+def delete_building(id):
   data ={
       'id': id
   }
-  Building.destroy(data)
+  Building.destroy_building(data)
   return redirect('/buildings')
 
 @app.route('/building/<int:id>')
@@ -42,14 +42,14 @@ def show_building(id):
   return render_template('show_building.html', building=building)
 
 @app.route('/edit/building/<int:id>')
-def edit(id):
+def edit_building(id):
   data ={ 
       "id":id
   }
   return render_template("edit_building.html",building=Building.get_building_by_id(data))
 
 @app.route('/update/building',methods=['POST'])
-def update():
+def update_building():
   Building.update(request.form)
   return redirect('/buildings')
   # if Building.validate_building(request.form):
