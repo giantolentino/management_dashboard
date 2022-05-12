@@ -68,7 +68,40 @@
 					</div>
 				</div>
 			</nav>
-			<h1>Welcome to your dashboard, {{user.first_name}} !!</h1>
+
+			<div class="container">
+				<h1>List of all buildings</h1>
+
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">Code</th>
+							<th scope="col">Name</th>
+							<th scope="col">Street Address</th>
+							<th scope="col">Zipcode</th>
+							<th scope="col">City</th>
+							<th scope="col">Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for b in buildings %}
+						<tr>
+							<td>{{b.code}}</td>
+							<td>{{b.name}}</td>
+							<td>{{b.street_address}}</td>
+							<td>{{b.zipcode}}</td>
+							<td>{{b.city}}</td>
+
+							<td>
+								<a href="/edit/building/{{b.id}}">edit</a> |
+								<a href="/destroy/building/{{b.id}}">delete</a> |
+								<a href="/building/{{b.id}}">show</a>
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
 		</div>
 
 		<script

@@ -2,11 +2,12 @@ from flask_app.config.mysqlconnection import connectToMySQL
 from .user import User
 from flask import flash
 
-class Property:
+class Building:
   db = "residential"
   def __init__(self, data):
       self.id = data['id']
       self.code = data['code']
+      self.name = data['name']
       self.street_address = data['street_address']
       self.zipcode = data['zipcode']
       self.city = data['city']
@@ -16,32 +17,37 @@ class Property:
 
   @classmethod
   def get_all(cls):
-      query = "SELECT * FROM properties;"
+      query = "SELECT * FROM buildings;"
 
       results = connectToMySQL(cls.db).query_db(query)
-      properties = []
+      buildings = []
 
       for property in results:
-          properties.append( cls(property) )
-      return properties
+          buildings.append( cls(property) )
+      return buildings
 
   @classmethod
   def save(cls, data):
-      query= "INSERT INTO properties (code, street_address, zipcode, city) VALUES (%(code)s,%(street_address)s,%(zipcode)s,%(city)s);"
+      query= "INSERT INTO buildings (code, name, street_address, zipcode, city) VALUES (%(code)s, %(name)s,%(street_address)s,%(zipcode)s,%(city)s);"
       result = connectToMySQL(cls.db).query_db(query,data)
       return result
 
   @classmethod
   def destroy(cls,data):
-      query  = "DELETE FROM properties WHERE id = %(id)s;"
+      query  = "DELETE FROM buildings WHERE id = %(id)s;"
       return connectToMySQL(cls.db).query_db(query,data)
 
   @classmethod
-  def get_property_by_id(cls, data ):
-      query = "SELECT * FROM properties WHERE properties.id = %(id)s;"
+  def get_building_by_id(cls, data ):
+      query = "SELECT * FROM buildings WHERE buildings.id = %(id)s;"
       result = connectToMySQL(cls.db).query_db(query,data)
       property = cls(result[0])
       return property
+
+  @classmethod
+  def update(cls,data):
+      query = "UPDATE buildings SET code=%(code)s,name=%(name)s,street_address=%(street_address)s,zipcode=%(zipcode)s, city=%(city)s,updated_at=NOW() WHERE id = %(id)s;"
+      return connectToMySQL(cls.db).query_db(query,data)
 
   # @staticmethod
   # def validate_car(car):
@@ -64,7 +70,3 @@ class Property:
   #       flash("Description must be at least 3 characters.")
   #   return is_valid
 
-  # @classmethod
-  # def update(cls,data):
-  #     query = "UPDATE cars SET price=%(price)s,model=%(model)s,make=%(make)s,year=%(year)s,updated_at=NOW(),description=%(description)s, users_id=%(users_id)s WHERE id = %(id)s;"
-  #     return connectToMySQL(cls.db).query_db(query,data)
