@@ -68,7 +68,31 @@
 					</div>
 				</div>
 			</nav>
-			<h1>Welcome to your dashboard, {{user.first_name}} !!</h1>
+
+			<div class="container">
+				<h1>List of all buildings</h1>
+
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">Code</th>
+							<th scope="col">Name</th>
+							<th scope="col">Street Address</th>
+							<th scope="col">Zipcode</th>
+							<th scope="col">City</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>{{building.code}}</td>
+							<td>{{building.name}}</td>
+							<td>{{building.street_address}}</td>
+							<td>{{building.zipcode}}</td>
+							<td>{{building.city}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 
 		<script
