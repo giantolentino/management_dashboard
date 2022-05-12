@@ -33,7 +33,7 @@ class Building:
       return result
 
   @classmethod
-  def destroy(cls,data):
+  def destroy_building(cls,data):
       query  = "DELETE FROM buildings WHERE id = %(id)s;"
       return connectToMySQL(cls.db).query_db(query,data)
 

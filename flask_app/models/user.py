@@ -67,3 +67,13 @@ class User:
             flash("Passwords don't match","register")
             is_valid= False
         return is_valid
+    
+    @classmethod
+    def destroy_manager(cls,data):
+      query  = "DELETE FROM users WHERE id = %(id)s;"
+      return connectToMySQL(cls.db).query_db(query,data)
+
+    @classmethod
+    def update(cls,data):
+      query = "UPDATE users SET first_name=%(first_name)s,last_name=%(last_name)s,email=%(email)s,updated_at=NOW() WHERE id = %(id)s;"
+      return connectToMySQL(cls.db).query_db(query,data)
