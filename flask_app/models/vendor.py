@@ -2,53 +2,52 @@ from flask_app.config.mysqlconnection import connectToMySQL
 from .user import User
 from flask import flash
 
-class Building:
+class Vendor:
   db = "residential"
   def __init__(self, data):
       self.id = data['id']
-      self.code = data['code']
-      self.name = data['name']
-      self.street_address = data['street_address']
-      self.zipcode = data['zipcode']
-      self.city = data['city']
-      self.users_id = data['users_id']
+      self.vendor_type = data['vendor_type']
+      self.business_name = data['business_name']
+      self.contact_name = data['contact_name']
+      self.contact_number = data['contact_number']
+      self.contact_email = data['contact_email']
+      self.properties_id = data['properties_id']
       self.created_at = data['created_at']
       self.updated_at = data['updated_at']
 
   @classmethod
   def get_all(cls):
-      query = "SELECT * FROM buildings;"
+      query = "SELECT * FROM vendors;"
 
       results = connectToMySQL(cls.db).query_db(query)
-      buildings = []
+      vendors = []
 
       for row in results:
-          buildings.append( cls(row) )
-
-      print(buildings) 
-      return buildings
+          vendors.append( cls(row) )
+      print(vendors)
+      return vendors
 
   @classmethod
   def save(cls, data):
-      query= "INSERT INTO buildings (code, name, street_address, zipcode, city) VALUES (%(code)s, %(name)s,%(street_address)s,%(zipcode)s,%(city)s);"
+      query= "INSERT INTO vendors (vendor_type, business_name, contact_name, contact_number, contact_email) VALUES (%(vendor_type)s, %(business_name)s,%(contact_name)s,%(contact_number)s,%(contact_email)s);"
       result = connectToMySQL(cls.db).query_db(query,data)
       return result
 
   @classmethod
-  def destroy_building(cls,data):
-      query  = "DELETE FROM buildings WHERE id = %(id)s;"
+  def destroy_vendor(cls,data):
+      query  = "DELETE FROM vendors WHERE id = %(id)s;"
       return connectToMySQL(cls.db).query_db(query,data)
 
   @classmethod
-  def get_building_by_id(cls, data ):
-      query = "SELECT * FROM buildings WHERE buildings.id = %(id)s;"
+  def get_vendor_by_id(cls, data ):
+      query = "SELECT * FROM vendors WHERE vendors.id = %(id)s;"
       result = connectToMySQL(cls.db).query_db(query,data)
-      property = cls(result[0])
-      return property
+      vendor = cls(result[0])
+      return vendor
 
   @classmethod
   def update(cls,data):
-      query = "UPDATE buildings SET code=%(code)s,name=%(name)s,street_address=%(street_address)s,zipcode=%(zipcode)s, city=%(city)s,updated_at=NOW() WHERE id = %(id)s;"
+      query = "UPDATE vendors SET vendor_type=%(vendor_type)s,business_name=%(business_name)s,contact_name=%(contact_name)s,contact_number=%(contact_number)s, contact_email=%(contact_email)s,updated_at=NOW() WHERE id = %(id)s;"
       return connectToMySQL(cls.db).query_db(query,data)
 
   # @staticmethod
