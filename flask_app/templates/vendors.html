@@ -1,0 +1,34 @@
+{% extends "base.html" %} {% block content %}
+<div class="container">
+	<h1>List of all Vendors</h1>
+	{{vendors.vendor_type}}
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">Vendor Type</th>
+				<th scope="col">Business Nmae</th>
+				<th scope="col">Contact Name</th>
+				<th scope="col">Contact Number</th>
+				<th scope="col">Contact Email</th>
+				<th scope="col">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for v in vendors %}
+			<tr>
+				<td>{{v.vendor_type}}</td>
+				<td>{{v.business_name}}</td>
+				<td>{{v.contact_name}}</td>
+				<td>{{v.contact_number}}</td>
+				<td>{{v.contact_email}}</td>
+				<td>
+					<a href="/edit/vendor/{{v.id}}">edit</a> |
+					<a href="/destroy/vendor/{{v.id}}">delete</a> |
+					<a href="/vendor/{{v.id}}">show</a>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endblock %}
