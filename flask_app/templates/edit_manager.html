@@ -1,51 +1,43 @@
-{% extends "base.html" %} {% block content %}
-<div class="border d-flex align-items-center justify-content-center vh-100">
-	<div class="card col-4">
-		<form action="/update/manager" method="post" class="card-body bg-light">
-			<h2 class="text-dark">Update Manager</h2>
-			{% with messages = get_flashed_messages(category_filter=['register']) %}
-			{% if messages %}
-			<div class="alert alert-danger" role="alert">
-				{% for message in messages %}
-				<p>{{message}}</p>
-				{% endfor %}
-			</div>
-			{% endif %} {% endwith %}
-			<div class="form-group">
-				<label for="first_name">First Name:</label>
-				<input
-					type="text"
-					name="first_name"
-					class="form-control"
-					value="{{manager.first_name}}"
-				/>
-			</div>
-			<div class="form-group">
-				<label for="last_name">Last Name:</label>
-				<input
-					type="text"
-					name="last_name"
-					class="form-control"
-					value="{{manager.last_name}}"
-				/>
-			</div>
-			<div class="form-group">
-				<label for="email">Email:</label>
-				<input
-					type="text"
-					name="email"
-					class="form-control"
-					value="{{manager.email}}"
-				/>
-			</div>
-			<input type="hidden" name="id" value="{{manager.id}}" />
-			<br />
-			<input
-				type="submit"
-				value="Update Manager"
-				class="btn btn-outline-dark"
-			/>
-		</form>
+{% extends "base_card_form.html" %} {% block form %}
+<form action="/update/manager" method="post">
+	<h2 class="text-dark">Update Manager</h2>
+	{% with messages = get_flashed_messages(category_filter=['register']) %} {% if
+	messages %}
+	<div class="alert alert-danger" role="alert">
+		{% for message in messages %}
+		<p>{{message}}</p>
+		{% endfor %}
 	</div>
-</div>
+	{% endif %} {% endwith %}
+	<div class="form-group">
+		<label for="first_name">First Name:</label>
+		<input
+			type="text"
+			name="first_name"
+			class="form-control"
+			value="{{manager.first_name}}"
+		/>
+	</div>
+	<div class="form-group">
+		<label for="last_name">Last Name:</label>
+		<input
+			type="text"
+			name="last_name"
+			class="form-control"
+			value="{{manager.last_name}}"
+		/>
+	</div>
+	<div class="form-group">
+		<label for="email">Email:</label>
+		<input
+			type="text"
+			name="email"
+			class="form-control"
+			value="{{manager.email}}"
+		/>
+	</div>
+	<input type="hidden" name="id" value="{{manager.id}}" />
+	<br />
+	<input type="submit" value="Update Manager" class="btn btn-dark" />
+</form>
 {% endblock %}
