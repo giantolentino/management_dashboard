@@ -1,39 +1,35 @@
-{% extends "base.html" %} {% block content %}
-<div class="border d-flex align-items-center justify-content-center vh-100">
-	<div class="card col-4">
-		<form action="/register/manager" method="post" class="card-body bg-light">
-			<h2 class="text-dark">Add a Manager</h2>
-			{% with messages = get_flashed_messages(category_filter=['register']) %}
-			{% if messages %}
-			<div class="alert alert-danger" role="alert">
-				{% for message in messages %}
-				<p>{{message}}</p>
-				{% endfor %}
-			</div>
-			{% endif %} {% endwith %}
-			<div class="form-group">
-				<label for="first_name">First Name:</label>
-				<input type="text" name="first_name" class="form-control" />
-			</div>
-			<div class="form-group">
-				<label for="last_name">Last Name:</label>
-				<input type="text" name="last_name" class="form-control" />
-			</div>
-			<div class="form-group">
-				<label for="email">Email:</label>
-				<input type="text" name="email" class="form-control" />
-			</div>
-			<div class="form-group">
-				<label for="password">Password:</label>
-				<input type="password" name="password" class="form-control" />
-			</div>
-			<div class="form-group">
-				<label for="confirm">Confirm Password:</label>
-				<input type="password" name="confirm" class="form-control" />
-			</div>
-			<br />
-			<input type="submit" value="Add Manager" class="btn btn-outline-dark" />
-		</form>
+{% extends "base_card_form.html" %} {% block form %}
+<form action="/register/manager" method="post">
+	<h2 class="text-center text-dark">Add a Manager</h2>
+	{% with messages = get_flashed_messages(category_filter=['register']) %} {% if
+	messages %}
+	<div class="alert alert-danger" role="alert">
+		{% for message in messages %}
+		<p>{{message}}</p>
+		{% endfor %}
 	</div>
-</div>
+	{% endif %} {% endwith %}
+	<div class="form-group">
+		<label for="first_name">First Name:</label>
+		<input type="text" name="first_name" class="form-control" />
+	</div>
+	<div class="form-group">
+		<label for="last_name">Last Name:</label>
+		<input type="text" name="last_name" class="form-control" />
+	</div>
+	<div class="form-group">
+		<label for="email">Email:</label>
+		<input type="text" name="email" class="form-control" />
+	</div>
+	<div class="form-group">
+		<label for="password">Password:</label>
+		<input type="password" name="password" class="form-control" />
+	</div>
+	<div class="form-group">
+		<label for="confirm">Confirm Password:</label>
+		<input type="password" name="confirm" class="form-control" />
+	</div>
+	<br />
+	<input type="submit" value="Add Manager" class="btn btn-dark" />
+</form>
 {% endblock %}
