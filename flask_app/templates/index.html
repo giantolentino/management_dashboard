@@ -1,10 +1,16 @@
-{% extends "base.html" %} {% block nav %}{% endblock %} {% block content %}
-<div class="bg-image">
-	<img src="/static/index-bg.jpg" class="img-fluid" />
+{% extends "base.html" %}{% block style %}<style>
+	#intro {
+		background-image: url(/static/index-bg.jpg);
+		height: 100vh;
+	}
+</style>
+{% endblock %}{% block nav %}{% endblock %}{% block content %}
+<div id="intro" class="bg-image shadow-2-strong">
+	<!-- <img src="/static/index-bg.jpg" class="img-fluid" /> -->
 	<div class="mask" style="background-color: rgba(0, 0, 0, 0.5)">
 		<div class="d-flex align-items-center justify-content-center vh-100">
-			<div id="btnHide" class="col-6">
-				<h1 class="text-white text-center">
+			<div id="btnHide" class="">
+				<h1 class="text-white text-center display-1">
 					Welcome to Residential Management
 				</h1>
 				<div class="text-center">
@@ -14,7 +20,7 @@
 				</div>
 			</div>
 
-			<div id="loginCard" class="card col-3" style="display: none">
+			<div id="loginCard" class="card col-3 opacity-100" style="display: none">
 				<div class="card-body opacity-75">
 					<!-- Pills navs -->
 					<ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
@@ -58,9 +64,7 @@
 								get_flashed_messages(category_filter=['login']) %} {% if
 								messages %}
 								<div class="alert alert-danger" role="alert">
-									{% for message in messages %}
-									<p>{{message}}</p>
-									{% endfor %}
+									{% for message in messages %} {{message}} {% endfor %}
 								</div>
 								{% endif %} {% endwith %}
 								<!-- Email input -->
