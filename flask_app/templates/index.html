@@ -164,5 +164,13 @@
 			y.style.display = "none";
 		}
 	}
+	document.addEventListener("mouseup", function (e) {
+		var container = document.getElementById("loginCard");
+		var enter = document.getElementById("btnHide");
+		if (!container.contains(e.target)) {
+			container.style.display = "none";
+			enter.style.display = "block";
+		}
+	});
 </script>
 {% endblock %}
