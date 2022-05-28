@@ -1,6 +1,32 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} {% block style %}
+<style>
+	body {
+		background-color: #f7f6f6;
+	}
+
+	.card {
+		border: none;
+		box-shadow: 5px 6px 6px 2px #e9ecef;
+		border-radius: 4px;
+	}
+
+	.delete{
+    display: none;
+	}
+
+	.action:hover .delete {
+		color: red;
+		display:block; 
+	}
+
+	.action:hover .gone {
+		display:none;  
+	}
+</style>
+{% endblock %} {% block content %}
 <div class="container">
 	<h1>List of all Vendors</h1>
+
 	<table class="table">
 		<thead>
 			<tr>
@@ -21,5 +47,50 @@
 			</tr>
 		</tbody>
 	</table>
+
+	<div class="row d-flex justify-content-center">
+		<div class="col-md-8"><form action="/add/comment" method="post">
+			<div class="form-group">
+				<textarea name="comment" class="form-control" />Add a comment...</textarea>
+			</div>
+			<input type="hidden" name="vendors_id" value="{{vendor.id}}" />
+			<input type="hidden" name="users_id" value="{{user.id}}" />
+			<br />
+			<input type="submit" value="Submit Comment" class="btn btn-dark" />
+		</form></div>
+	</div>
+	
+	<div class="container mt-5">
+	{% for c in comments %}
+	<div class="mt-3">
+		<div class="row d-flex justify-content-center">
+			<div class="col-md-8">
+				<div class="card p-3">
+					<div class="d-flex justify-content-between align-items-center">
+						<div class="user d-flex flex-row align-items-center col-11">
+							<span
+								><small class="font-weight-bold text-primary"
+									>{{c.submitter}}: </small
+								>
+								<small class="font-weight-bold"
+									>{{c.comment}}</small
+								></span
+							>
+						</div>
+
+						<span class="action"> 
+							{% if session['user_id'] == c.users_id %}
+							<a href="/destroy/comment/{{c.id}}" class="delete">delete</a>
+							{% endif %} 
+							<small class="gone">{{c.time_span()}}</small>
+						</span>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
 </div>
 {% endblock %}
