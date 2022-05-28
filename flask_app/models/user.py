@@ -71,6 +71,20 @@ class User:
             is_valid = False
         return is_valid
 
+    @staticmethod
+    def validate_update_maanger(user):
+        is_valid = True
+        if len(user["first_name"]) < 3:
+            flash("First name must be at least 3 characters", "register")
+            is_valid = False
+        if len(user["last_name"]) < 3:
+            flash("Last name must be at least 3 characters", "register")
+            is_valid = False
+        if len(user["email"]) < 3:
+            flash("Email must be at least 3 characters", "register")
+            is_valid = False
+        return is_valid
+
     @classmethod
     def destroy_manager(cls, data):
         query = "DELETE FROM users WHERE id = %(id)s;"
