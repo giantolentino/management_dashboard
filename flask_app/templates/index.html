@@ -3,6 +3,14 @@
 		background-image: url(/static/index-bg.jpg);
 		height: 100vh;
 	}
+
+	.nav-pills .nav-link.active {
+		background-color: darkslategray;
+	}
+
+	#submit-btn {
+		background-color: darkslategray;
+	}
 </style>
 {% endblock %}{% block nav %}{% endblock %}{% block content %}
 <div id="intro" class="bg-image shadow-2-strong">
@@ -84,6 +92,7 @@
 									type="submit"
 									value="Login"
 									class="btn btn-primary btn-block mb-4"
+									id="submit-btn"
 								>
 									Login
 								</button>
@@ -132,6 +141,7 @@
 									type="submit"
 									value="Register"
 									class="btn btn-primary btn-block mb-3"
+									id="submit-btn"
 								>
 									Register
 								</button>
