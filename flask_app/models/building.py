@@ -43,7 +43,7 @@ class Building:
 
     @classmethod
     def get_building_by_id(cls, data):
-        query = "SELECT * FROM buildings WHERE buildings.id = %(id)s;" % data
+        query = "SELECT * FROM buildings WHERE buildings.id = %(id)s;"
         result = connectToMySQL(cls.db).query_db(query, data)
         property = cls(result[0])
         return property
@@ -53,23 +53,22 @@ class Building:
         query = "UPDATE buildings SET code=%(code)s,name=%(name)s,street_address=%(street_address)s,zipcode=%(zipcode)s, city=%(city)s,updated_at=NOW() WHERE id = %(id)s;"
         return connectToMySQL(cls.db).query_db(query, data)
 
-    # @staticmethod
-    # def validate_car(car):
-    #   is_valid = True
-
-    #   if int(car['price']) <= 0:
-    #       is_valid = False
-    #       flash("Price must be more than 0.")
-    #   if len(car['make']) < 3:
-    #       is_valid = False
-    #       flash("Make must be at least 3 characters.")
-    #   if len(car['model']) < 3:
-    #       is_valid = False
-    #       flash("Model must be at least 3 characters.")
-    #   if int(car['year']) <= 0:
-    #       is_valid = False
-    #       flash("Year must be more than 0.")
-    #   if len(car['description']) < 3:
-    #       is_valid = False
-    #       flash("Description must be at least 3 characters.")
-    #   return is_valid
+    @staticmethod
+    def validate_building(building):
+        is_valid = True
+        if len(building["code"]) < 2:
+            flash("Building Code must be at least 2 characters", "building")
+            is_valid = False
+        if len(building["name"]) < 3:
+            flash("Name must be at least 3 characters", "building")
+            is_valid = False
+        if len(building["street_address"]) < 8:
+            flash("Street Address must be at least 8 characters", "building")
+            is_valid = False
+        if len(building["zipcode"]) <= 5:
+            flash("Zipcode must be at least 5 digits", "building")
+            is_valid = False
+        if len(building["city"]) < 3:
+            flash("City must be at least 3 characters", "building")
+            is_valid = False
+        return is_valid
