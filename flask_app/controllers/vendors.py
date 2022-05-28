@@ -20,12 +20,10 @@ def add_vendor():
 
 @app.route("/register/vendor", methods=["POST"])
 def submit_vendor():
-    Vendor.save(request.form)
-    return redirect("/dashboard")
-    # if property.validate_property(request.form):
-    #       property.save(request.form)
-    #       return redirect('/dashboard')
-    # return redirect('/add')
+    if Vendor.validate_vendor(request.form):
+        Vendor.save(request.form)
+        return redirect("/vendors")
+    return redirect(request.referrer)
 
 
 @app.route("/destroy/vendor/<int:id>")
@@ -55,9 +53,7 @@ def edit_vendor(id):
 
 @app.route("/update/vendor", methods=["POST"])
 def update_vendor():
-    Vendor.update(request.form)
-    return redirect("/vendors")
-    # if Building.validate_building(request.form):
-    #       Building.update(request.form)
-    #       return redirect('/buildings')
-    # return redirect(request.referrer)
+    if Vendor.validate_vendor(request.form):
+        Vendor.update(request.form)
+        return redirect("/vendors")
+    return redirect(request.referrer)

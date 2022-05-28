@@ -26,7 +26,6 @@ class Vendor:
 
         for row in results:
             vendors.append(cls(row))
-        print(vendors)
         return vendors
 
     @classmethod
@@ -52,23 +51,23 @@ class Vendor:
         query = "UPDATE vendors SET vendor_type=%(vendor_type)s,business_name=%(business_name)s,contact_name=%(contact_name)s,contact_number=%(contact_number)s, contact_email=%(contact_email)s,updated_at=NOW() WHERE id = %(id)s;"
         return connectToMySQL(cls.db).query_db(query, data)
 
-    # @staticmethod
-    # def validate_car(car):
-    #   is_valid = True
+    @staticmethod
+    def validate_vendor(vendor):
+        is_valid = True
 
-    #   if int(car['price']) <= 0:
-    #       is_valid = False
-    #       flash("Price must be more than 0.")
-    #   if len(car['make']) < 3:
-    #       is_valid = False
-    #       flash("Make must be at least 3 characters.")
-    #   if len(car['model']) < 3:
-    #       is_valid = False
-    #       flash("Model must be at least 3 characters.")
-    #   if int(car['year']) <= 0:
-    #       is_valid = False
-    #       flash("Year must be more than 0.")
-    #   if len(car['description']) < 3:
-    #       is_valid = False
-    #       flash("Description must be at least 3 characters.")
-    #   return is_valid
+        if len(vendor["vendor_type"]) < 3:
+            is_valid = False
+            flash("Vendor type must be more than 3 characters.")
+        if len(vendor["business_name"]) < 3:
+            is_valid = False
+            flash("Business name must be at least 3 characters.")
+        if len(vendor["contact_name"]) < 3:
+            is_valid = False
+            flash("Contact name must be at least 3 characters.")
+        if len(vendor["contact_number"]) <= 0:
+            is_valid = False
+            flash("Contact number must be more than 0.")
+        if len(vendor["contact_email"]) < 3:
+            is_valid = False
+            flash("Email must be at least 3 characters.")
+        return is_valid
