@@ -20,8 +20,6 @@ class Comment:
     def time_span(self):
         now = datetime.now()
         delta = now - self.created_at
-        print(delta.days)
-        print(delta.total_seconds())
         if delta.days > 0:
             return f"{delta.days}d"
         elif (math.floor(delta.total_seconds() / 60)) >= 60:
@@ -46,13 +44,11 @@ class Comment:
         )
 
         results = connectToMySQL(cls.db).query_db(query)
-        print(results)
-        vendors = []
+        comments = []
 
         for row in results:
-            vendors.append(cls(row))
-        print(vendors)
-        return vendors
+            comments.append(cls(row))
+        return comments
 
     @classmethod
     def destroy_comment(cls, data):
