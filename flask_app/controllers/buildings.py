@@ -51,5 +51,5 @@ def edit_building(id):
 def update_building():
     if not Building.validate_building(request.form):
         return redirect(request.referrer)
-    Building.save(request.form)
+    Building.update(request.form)
     return redirect("/buildings")
