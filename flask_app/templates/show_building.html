@@ -22,42 +22,48 @@
 
 <style>
 	#map {
-		height: 400px;
+		height: 100%;
 		/* The height is 400 pixels */
 		width: 100%;
 		/* The width is the width of the web page */
+
+		object-fit: contain;
 	}
 </style>
 {% endblock %} {% block content %}
 <div class="container">
-	<h1>List of all buildings</h1>
-	<table class="table">
-		<thead>
-			<tr>
-				<th scope="col">Code</th>
-				<th scope="col">Name</th>
-				<th scope="col">Street Address</th>
-				<th scope="col">Zipcode</th>
-				<th scope="col">City</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>{{building.code}}</td>
-				<td>{{building.name}}</td>
-				<td>{{building.street_address}}</td>
-				<td>{{building.zipcode}}</td>
-				<td>{{building.city}}</td>
-			</tr>
-		</tbody>
-	</table>
+	<h1>{{building.name}}</h1>
 
-	<div class="col-6"><div id="map"></div></div>
+	<div class="row">
+		<div class="card col-4">
+			<div class="card-body">
+				<p>Code: <br />{{building.code}}</p>
+				<p>
+					Address: <br />{{building.street_address}}, {{building.city}}, CA
+					{{building.zipcode}}
+				</p>
+
+				<div class="photo-gallery">
+					<div class="item" style="padding-bottom: 0px">
+						<a href="/static/apt-{{building.id}}.jpg" data-lightbox="photos"
+							><img
+								class="img-fluid thumb"
+								src="/static/apt-{{building.id}}.jpg"
+						/></a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-8">
+			<div id="map"></div>
+		</div>
+	</div>
+
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANIph9cgPNh218TiVnIsP3lHXdMpF5Vh0&callback=initMap&v=weekly"
+		defer
+	></script>
+
+	{% endblock %}
 </div>
-
-<script
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANIph9cgPNh218TiVnIsP3lHXdMpF5Vh0&callback=initMap&v=weekly"
-	defer
-></script>
-
-{% endblock %}

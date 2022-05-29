@@ -19,7 +19,7 @@ class Building:
 
     @classmethod
     def get_all(cls):
-        query = "SELECT * FROM buildings;"
+        query = "SELECT * FROM buildings ORDER BY code ASC;"
 
         results = connectToMySQL(cls.db).query_db(query)
         buildings = []
@@ -65,7 +65,7 @@ class Building:
         if len(building["street_address"]) < 8:
             flash("Street Address must be at least 8 characters", "building")
             is_valid = False
-        if len(building["zipcode"]) <= 5:
+        if len(building["zipcode"]) < 5:
             flash("Zipcode must be at least 5 digits", "building")
             is_valid = False
         if len(building["city"]) < 3:
