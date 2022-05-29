@@ -9,6 +9,7 @@ class Like:
     def __init__(self, data):
         self.comments_id = data["comments_id"]
         self.users_id = data["users_id"]
+        self.liker = data["liker"]
 
     @classmethod
     def get_all(cls):

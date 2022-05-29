@@ -40,8 +40,9 @@ def show_vendor(id):
     user = User.get_by_id(user_data)
     vendor = Vendor.get_vendor_by_id(data)
     comments = Comment.get_comments_by_vendors_id(data)
+    likers = Comment.get_likers_by_vendors_id(data)
     return render_template(
-        "show_vendor.html", user=user, vendor=vendor, comments=comments
+        "show_vendor.html", user=user, vendor=vendor, comments=comments, likers=likers
     )
 
 

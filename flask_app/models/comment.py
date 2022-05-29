@@ -51,6 +51,26 @@ class Comment:
         return comments
 
     @classmethod
+    def get_likers_by_vendors_id(cls, data):
+        query = (
+            "SELECT users2.first_name AS liker"
+            + " FROM users LEFT JOIN comments ON users.id = users_id"
+            + " LEFT JOIN likes ON comments_id = comments.id"
+            + " LEFT JOIN users AS users2 ON users2.id = likes.users_id"
+            + " WHERE vendors_id = "
+            + str(data["id"])
+            + ";"
+        )
+
+        results = connectToMySQL(cls.db).query_db(query)
+        print(results)
+        comments = []
+
+        for row in results:
+            comments.append(cls(row))
+        return comments
+
+    @classmethod
     def destroy_comment(cls, data):
         query = "DELETE FROM comments WHERE id = %(id)s;"
         return connectToMySQL(cls.db).query_db(query, data)
