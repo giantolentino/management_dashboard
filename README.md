@@ -1,7 +1,5 @@
 # Management Dashboard
 
-## Welcome Page
-![](https://i.imgur.com/i8Wfjw0.gif)
+Video Demonstration on some features
 
-## Home Page
-![](https://imgur.com/ulUwLMA)
+https://streamable.com/fmj6lw
