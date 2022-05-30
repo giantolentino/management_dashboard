@@ -80,6 +80,8 @@ def register_manager():
 
 @app.route("/managers")
 def managers():
+    if "user_id" not in session:
+        return redirect("/logout")
     managers = User.get_all()
     return render_template("managers.html", managers=managers)
 
