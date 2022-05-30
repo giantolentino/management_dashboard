@@ -7,6 +7,8 @@ from flask_app.models.user import User
 
 @app.route("/buildings")
 def buildings():
+    if "user_id" not in session:
+        return redirect("/logout")
     buildings = Building.get_all()
     return render_template("buildings.html", buildings=buildings)
 

@@ -8,6 +8,8 @@ from flask_app.models.comment import Comment
 
 @app.route("/vendors")
 def vendors():
+    if "user_id" not in session:
+        return redirect("/logout")
     vendors = Vendor.get_all()
     return render_template("vendors.html", vendors=vendors)
 
