@@ -1,1 +1,3 @@
-# management_dashboard
+# Management Dashboard
+
+## Welcome Page
